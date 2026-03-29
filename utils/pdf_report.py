@@ -192,7 +192,7 @@ def generate_report(scenario, impact_dict, policy_pkg, indicators) -> bytes:
         if len(mechanism) > 45:
             mechanism = mechanism[:45] + "..."
         ax.text(0.05, 0.88 - j * 0.115, f"→ {mechanism}",
-                fontsize=6.5, color=white, fontfamily="monospace")
+                fontsize=6.5, color=white)
 
     # ════════════════════════════════════════
     # Row 5-6: 정책 도구별 효과 (테이블)
