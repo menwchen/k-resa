@@ -6,7 +6,6 @@ from dashboard.components.charts import radar_chart, bar_chart
 from dashboard.components.widgets import policy_selector
 from models.policy_simulator import PolicySimulator
 from models.impact_calculator import ImpactResult
-from utils.pdf_report import generate_report
 
 
 def render(data_manager):
@@ -108,10 +107,6 @@ def _preset_comparison(simulator: PolicySimulator, impact_result: ImpactResult):
                     f"시차 {a.lag_quarters}분기"
                 )
 
-    # PDF 다운로드 (최적 패키지 = 효과성 점수 최고)
-    best_pkg = max(packages, key=lambda x: x[1].effectiveness_score)[1]
-    _pdf_download_button(best_pkg)
-
 
 def _custom_policy(simulator: PolicySimulator, impact_result: ImpactResult):
     """사용자 정의 정책"""
@@ -174,44 +169,3 @@ def _custom_policy(simulator: PolicySimulator, impact_result: ImpactResult):
     with col2:
         fig = bar_chart(action_names, cpi_effects, "정책별 CPI 효과 (%p)")
         st.plotly_chart(fig, use_container_width=True)
-
-    # PDF 다운로드
-    _pdf_download_button(pkg)
-
-
-def _pdf_download_button(policy_pkg):
-    """PDF 보고서 다운로드 버튼"""
-    scenario = st.session_state.get("current_scenario")
-    impact_result = st.session_state.get("impact_result")
-    impact_dict = st.session_state.get("impact_result_dict", {})
-    indicators = st.session_state.get("_cached_indicators", {})
-
-    if not scenario or not impact_result:
-        return
-
-    # indicators가 세션에 없으면 가져오기 시도
-    if not indicators:
-        try:
-            from data.data_manager import DataManager
-            dm = DataManager()
-            indicators = dm.get_current_indicators()
-        except Exception:
-            indicators = {}
-
-    st.divider()
-    st.subheader("📄 PDF 보고서")
-
-    if st.button("📥 1페이지 분석 보고서 다운로드", type="primary", key="pdf_btn"):
-        with st.spinner("PDF 생성 중..."):
-            pdf_bytes = generate_report(scenario, impact_dict, policy_pkg, indicators)
-            st.session_state["_pdf_data"] = pdf_bytes
-
-    if "_pdf_data" in st.session_state:
-        from datetime import datetime
-        filename = f"K-RESA_보고서_{datetime.now().strftime('%Y%m%d_%H%M')}.pdf"
-        st.download_button(
-            label="💾 PDF 저장",
-            data=st.session_state["_pdf_data"],
-            file_name=filename,
-            mime="application/pdf",
-        )

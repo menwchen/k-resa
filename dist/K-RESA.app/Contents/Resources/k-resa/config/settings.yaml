@@ -1,0 +1,28 @@
+# K-RESA 설정 파일
+# API 키는 환경변수 또는 여기에 직접 입력
+
+api_keys:
+  fred: "79ba2d49eedc272aeca6722d9ab23c26"
+  bok_ecos: "UVHQDT9SA6V111EMHN2C"
+  kosis: "1516503da37246a2a9f6"
+  eia: "rDneVcol37YbtfntPv2QMDHedl660gXBhRTsp3j2"
+
+cache:
+  enabled: true
+  ttl_hours: 24     # 캐시 유효 기간 (시간)
+  directory: "data/cache"
+
+data_fetch:
+  lookback_months: 6    # 과거 데이터 조회 기간
+  default_currency: "USD"
+  default_unit: "barrel"
+
+dashboard:
+  title: "K-RESA: 한국 경제 복합위기 시나리오 분석기"
+  theme: "wide"
+  default_tab: "overview"
+
+monte_carlo:
+  n_simulations: 10000
+  confidence_level: 0.95
+  random_seed: 42

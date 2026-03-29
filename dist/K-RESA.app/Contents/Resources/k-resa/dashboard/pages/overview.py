@@ -14,7 +14,6 @@ def render(data_manager):
 
     # ─── 주요 지표 카드 ───
     indicators = data_manager.get_current_indicators()
-    st.session_state["_cached_indicators"] = indicators
 
     def _safe(val, default=0):
         return default if val is None else val
