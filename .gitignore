@@ -4,6 +4,9 @@ config/settings.yaml
 # Streamlit secrets
 .streamlit/secrets.toml
 
+# 빌드 산출물
+dist/
+
 # 캐시
 data/cache/
 
