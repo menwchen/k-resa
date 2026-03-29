@@ -1,0 +1,19 @@
+# API 키가 포함된 설정 파일
+config/settings.yaml
+
+# Streamlit secrets
+.streamlit/secrets.toml
+
+# 캐시
+data/cache/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
