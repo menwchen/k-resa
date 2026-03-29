@@ -1,6 +1,8 @@
 """
 K-RESA: 한국 경제 복합위기 시나리오 분석기
 Korean Economy Risk & Event Scenario Analyzer
+
+개발: 송종운 (menwchen@mac.com)
 """
 
 import sys
@@ -78,12 +80,16 @@ with tab5:
 with st.sidebar:
     st.markdown("### ℹ️ K-RESA 정보")
     st.markdown("""
+    **Korean Economy Risk & Event Scenario Analyzer**
+
     **버전**: 1.0.0
+    **개발**: 송종운
+
     **데이터 소스**:
-    - FRED API
-    - 한국은행 ECOS API
-    - EIA API
-    - 수동 데이터 (YAML)
+    - FRED API (유가, 환율, 곡물)
+    - 한국은행 ECOS API (CPI, PPI, 금리, GDP)
+    - KOSIS API (고용, 인구)
+    - EIA API (에너지)
 
     **분석 기능**:
     1. 실시간 지표 모니터링
@@ -100,4 +106,4 @@ with st.sidebar:
         st.rerun()
 
     st.markdown("---")
-    st.caption("© 2026 K-RESA Project")
+    st.caption("© 2026 송종운 (menwchen@mac.com)")
