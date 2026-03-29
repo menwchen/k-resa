@@ -35,8 +35,8 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ─── 헤더 ───
-st.markdown("# 🇰🇷 K-RESA")
-st.markdown("**Korean Economy Risk & Event Scenario Analyzer** | 한국 경제 복합위기 시나리오 분석기")
+st.markdown("# 🇰🇷 K-RESA (Risk & Event Scenario Analyzer)")
+st.markdown("**한국 경제 복합위기 시나리오 분석기**")
 st.markdown("---")
 
 # ─── 데이터 매니저 초기화 ───
