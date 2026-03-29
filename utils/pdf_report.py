@@ -12,22 +12,35 @@ import numpy as np
 
 # 한글 폰트 설정 (macOS + Linux/Cloud)
 import matplotlib.font_manager as fm
-import os, glob
+import os, glob, platform
 
-# Linux(Cloud)에서 나눔폰트 경로 등록
-for pattern in ["/usr/share/fonts/truetype/nanum/*.ttf",
-                "/usr/share/fonts/nanum/*.ttf"]:
-    for fpath in glob.glob(pattern):
-        fm.fontManager.addfont(fpath)
+def _setup_korean_font():
+    """한글 폰트를 찾아서 설정"""
+    # Linux(Cloud)에서 나눔폰트 경로 등록
+    for pattern in ["/usr/share/fonts/truetype/nanum/*.ttf",
+                    "/usr/share/fonts/nanum/*.ttf"]:
+        for fpath in glob.glob(pattern):
+            fm.fontManager.addfont(fpath)
 
-for font in ["NanumGothic", "AppleGothic", "Apple SD Gothic Neo", "Malgun Gothic"]:
-    try:
-        fm.findfont(font, fallback_to_default=False)
-        plt.rcParams["font.family"] = font
-        plt.rcParams["axes.unicode_minus"] = False
-        break
-    except Exception:
-        continue
+    # OS별 폰트 후보
+    if platform.system() == "Darwin":
+        candidates = ["AppleGothic", "Apple SD Gothic Neo", "NanumGothic"]
+    else:
+        candidates = ["NanumGothic", "NanumBarunGothic"]
+
+    for font in candidates:
+        try:
+            fm.findfont(font, fallback_to_default=False)
+            plt.rcParams["font.family"] = font
+            plt.rcParams["axes.unicode_minus"] = False
+            return
+        except Exception:
+            continue
+
+    # 폰트를 못 찾으면 기본 sans-serif 사용 (한글 깨질 수 있음)
+    plt.rcParams["axes.unicode_minus"] = False
+
+_setup_korean_font()
 
 
 def generate_report(scenario, impact_dict, policy_pkg, indicators) -> bytes:
