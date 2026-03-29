@@ -46,7 +46,7 @@ def render(data_manager):
 
     st.dataframe(
         df_display[["시나리오", "사전확률", "사후확률", "95% 신뢰구간"]],
-        use_container_width=True,
+        key=None,
         hide_index=True,
     )
 
@@ -61,7 +61,7 @@ def render(data_manager):
     for i, s in enumerate(top_scenarios):
         with cols[i % 3]:
             fig = gauge_chart(s["posterior"], s["scenario"])
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, key=None)
 
     st.divider()
 
@@ -75,7 +75,7 @@ def render(data_manager):
         changes = [p - q for p, q in zip(posteriors, priors)]
 
         fig = bar_chart(names, changes, "사후확률 - 사전확률 변화 (%p)")
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, key=None)
 
         # 반영된 증거 목록
         st.markdown("**반영된 증거:**")
@@ -122,6 +122,6 @@ def render(data_manager):
                 ci=(mc_result.confidence_interval[0] * 100,
                     mc_result.confidence_interval[1] * 100),
             )
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, key=None)
     else:
         st.info("시나리오를 구성하면 Monte Carlo 시뮬레이션 결과를 볼 수 있습니다.")

@@ -63,7 +63,7 @@ def render(data_manager):
             labels = [name_map.get(k, k) for k in oil_import.keys()]
             values = list(oil_import.values())
             fig = pie_chart(labels, values, "원유 수입 국가별 비중 (%)")
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, key=None)
 
     with col2:
         # 전력 생산 구성
@@ -77,7 +77,7 @@ def render(data_manager):
             labels = [name_map.get(k, k) for k in power_mix_clean.keys()]
             values = list(power_mix_clean.values())
             fig = pie_chart(labels, values, "전력 생산 구성 (%)")
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, key=None)
 
     # ─── 산업별 GDP 비중 ───
     sectors = data_manager.get_sector_data()
@@ -87,7 +87,7 @@ def render(data_manager):
         gdp_shares = [info.get("gdp_share_pct", 0) for info in sectors.values()]
 
         fig = bar_chart(names, gdp_shares, "산업별 GDP 비중 (%)", color="#4FC3F7")
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, key=None)
 
     # ─── 데이터 수집 상태 ───
     with st.expander("📡 데이터 수집 상태"):

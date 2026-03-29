@@ -55,7 +55,7 @@ def render(data_manager):
     paths = result_dict.get("transmission_paths", [])
     if paths:
         fig = sankey_diagram(paths)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, key=None)
 
         with st.expander("전파 경로 상세"):
             for i, p in enumerate(paths, 1):
@@ -72,7 +72,7 @@ def render(data_manager):
     if sector_impacts:
         # 히트맵
         fig = heatmap_chart(sector_impacts)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, key=None)
 
         # 총 영향 막대차트
         names = [v["name_kr"] for v in sector_impacts.values()]
@@ -86,7 +86,7 @@ def render(data_manager):
             list(names_sorted), list(totals_sorted),
             "산업별 총 영향도 (%)", orientation="h",
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, key=None)
 
         # 고용 위험 표시
         st.markdown("**고용 위험도:**")
@@ -118,7 +118,7 @@ def render(data_manager):
             xlabel="GDP 영향 (%p)",
             ci=(gdp_dist["p5"], gdp_dist["p95"]),
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, key=None)
 
     with col2:
         cpi_dist = dist["cpi"]
@@ -128,7 +128,7 @@ def render(data_manager):
             xlabel="CPI 영향 (%p)",
             ci=(cpi_dist["p5"], cpi_dist["p95"]),
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, key=None)
 
     # 요약 통계
     st.markdown(f"""

@@ -75,7 +75,7 @@ def _preset_comparison(simulator: PolicySimulator, impact_result: ImpactResult):
             "효과성": f"{pkg.effectiveness_score:.1f}",
         })
 
-    st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
+    st.dataframe(pd.DataFrame(rows), key=None, hide_index=True)
 
     # 레이더 차트 비교
     categories = ["GDP 개선", "CPI 억제", "비용 효율", "즉시성", "실업 완화"]
@@ -95,7 +95,7 @@ def _preset_comparison(simulator: PolicySimulator, impact_result: ImpactResult):
         names.append(preset["name"])
 
     fig = radar_chart(categories, values_list, names, "정책 패키지 종합 비교")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, key=None)
 
     # 세부 정책 내역
     for preset, pkg in packages:
@@ -170,10 +170,10 @@ def _custom_policy(simulator: PolicySimulator, impact_result: ImpactResult):
     col1, col2 = st.columns(2)
     with col1:
         fig = bar_chart(action_names, gdp_effects, "정책별 GDP 효과 (%p)")
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, key=None)
     with col2:
         fig = bar_chart(action_names, cpi_effects, "정책별 CPI 효과 (%p)")
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, key=None)
 
     # PDF 다운로드
     _pdf_download_button(pkg)
