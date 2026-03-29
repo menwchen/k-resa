@@ -10,9 +10,19 @@ import matplotlib.patches as mpatches
 import numpy as np
 
 
-# 한글 폰트 설정 (macOS)
-for font in ["AppleGothic", "Apple SD Gothic Neo", "Malgun Gothic", "NanumGothic"]:
+# 한글 폰트 설정 (macOS + Linux/Cloud)
+import matplotlib.font_manager as fm
+import os, glob
+
+# Linux(Cloud)에서 나눔폰트 경로 등록
+for pattern in ["/usr/share/fonts/truetype/nanum/*.ttf",
+                "/usr/share/fonts/nanum/*.ttf"]:
+    for fpath in glob.glob(pattern):
+        fm.fontManager.addfont(fpath)
+
+for font in ["NanumGothic", "AppleGothic", "Apple SD Gothic Neo", "Malgun Gothic"]:
     try:
+        fm.findfont(font, fallback_to_default=False)
         plt.rcParams["font.family"] = font
         plt.rcParams["axes.unicode_minus"] = False
         break
